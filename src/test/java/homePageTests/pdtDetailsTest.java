@@ -34,8 +34,10 @@ public class pdtDetailsTest {
 	
 	@Test
 	public void SocialsiteDisplay() {
-		Assert.assertTrue(pdtPage.elementFound(pdtPage.twitter()));	
+		Assert.assertTrue(pdtPage.elementFound(pdtPage.twitter()));
 		Assert.assertTrue(pdtPage.elementFound(pdtPage.share()));
 	}
+
+	
 	
 }
