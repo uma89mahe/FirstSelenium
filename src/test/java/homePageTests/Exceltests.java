@@ -2,6 +2,7 @@ package homePageTests;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -30,6 +31,21 @@ public class Exceltests {
 			}
 		
 		}
+	
+	
+	if(sheet.getRow(8)==null) {
+		sheet.createRow(8);
+			}
+	Cell currentCell = sheet.getRow(8).getCell(4);
+	if(currentCell == null) {
+		sheet.getRow(8).createCell(4).setCellValue("Successfull writing");
+	}else {
+		sheet.getRow(8).getCell(4).setCellValue("Successful Writing");
+	}
+	
+	FileOutputStream out = new FileOutputStream ("C:\\\\Users\\\\u.dayalamurthy\\\\Documents\\\\Uma\\\\TestData.xlsx");
+	wb.write(out);
+	out.close();
 	}
 
 }
