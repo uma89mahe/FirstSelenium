@@ -15,7 +15,7 @@ public class HomePageTests {
 		bp = new BasePage();
 	}
 
-	@Test
+	@Test(enabled=false)
 	public void tab() {
 		Assert.assertTrue(homePage.elementFound(homePage.women()));
 		Assert.assertTrue(homePage.elementFound(homePage.dresses()));
@@ -37,12 +37,22 @@ public class HomePageTests {
 		homePage.clickNewsletter();
 		homePage.newsletterSend();
 		homePage.clickNewsbutton();
-		Assert.assertTrue(homePage.getNewsAlert().equals("Newsletter : You have successfully subscribed to this newsletter."));
+		
 		}
 	
-	@Test
+	@Test(enabled=false)
 	public void verifyAddtoCartButtonDisplay() {
 		homePage.homeUrl();
 		homePage.mouseHover();		
+	}
+	
+	@Test(enabled=false)
+	public void verifyWebTable() {
+		homePage.webtableReading();
+	}
+	
+	@Test
+	public void verifyToolsQA() {
+		homePage.toolsQAWebtable();
 	}
 }

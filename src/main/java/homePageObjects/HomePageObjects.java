@@ -1,8 +1,15 @@
 package homePageObjects;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -108,15 +115,74 @@ public class HomePageObjects extends BasePage {
 	}
 
 	public void mouseHover() {
-		Actions ac = new Actions(driver);			
-			for( int i=0; i<allProducts.size();i++) {			
-				ac.moveToElement(allProducts.get(i)).build().perform();
-				if(AddtoCart.get(i).isDisplayed()) {
-					System.out.println("Add to Cart Displayed");
-				}			
+		Actions ac = new Actions(driver);
+		for (int i = 0; i < allProducts.size(); i++) {
+			ac.moveToElement(allProducts.get(i)).build().perform();
+			if (AddtoCart.get(i).isDisplayed()) {
+				System.out.println("Add to Cart Displayed");
+			}
 		}
 	}
-	
-	
+
+	public void excelRead() throws IOException {
+		File location = new File("C:\\Users\\u.dayalamurthy\\Documents\\Uma\\TestData.xlsx");
+		FileInputStream reader = new FileInputStream(location);
+		Workbook wb = new XSSFWorkbook(reader);
+		Sheet sheet = wb.getSheet("Sheet1");
+
+		/*
+		 * for(int i=0;i<sheet.getPhysicalNumberOfRows();i++) { Row eachRow=
+		 * sheet.getRow(i); for(int j=0;j<eachRow.getPhysicalNumberOfCells();j++) { Cell
+		 * eachCell= eachRow.getCell(j);
+		 * 
+		 * 
+		 * 
+		 */
+	}
+
+	public void webtableReading() {
+
+		List<WebElement> tablerows = driver.findElements(By.className("ui-grid-canvas"));
+
+		for (int i = 0; i < tablerows.size(); i++) {
+			WebElement row = tablerows.get(i);
+
+			List<WebElement> cells = row.findElements(By.xpath(".//div"));
+
+			for (int j = 0; j < cells.size(); j++) {
+				String text = cells.get(j).getText();
+				System.out.println(text);
+			}
+		}
+	}
+
+	public void toolsQAWebtable() {
+		driver.get("https://www.toolsqa.com/automation-practice-table/");
+		List<WebElement> table = driver.findElements(By.xpath("//table[@class = 'tsc_table_s13']//tr"));
+		for (int i = 0; i < table.size(); i++) {
+			WebElement row = table.get(i);
+
+			List<WebElement> cells = row.findElements(By.xpath(".//td"));
+			for (int j = 0; j < cells.size(); j++) {
+				String text = cells.get(j).getText();
+				// click the link in same row
+				if (text.equals("Mecca")) {
+					row.findElement(By.xpath("//td[6]")).click();
+				}
+				// printing cell address
+				if (text.equals("Taipei")) {
+					String rowindex = row.findElement(By.xpath(".//th")).getText();
+
+					System.out.println(rowindex + " " + (j + 1));
+				}
+			}
+		
+			// count of string
+			List<WebElement> count = driver.findElements(By.xpath("//table[@class = 'tsc_table_s13']//tr//td[text()= '2010']"));
+			System.out.println("The size is: "+count.size());
+
+		}
+
+	}
 
 }
